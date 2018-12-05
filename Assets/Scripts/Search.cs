@@ -91,6 +91,7 @@ public class Search  {
 
 	public Node ChoseNode(){
 
+		//TODO create workable heuristic 
 		return reachable[Random.Range(0, reachable.Count)];
 	}
 }

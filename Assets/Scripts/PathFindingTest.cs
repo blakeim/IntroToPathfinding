@@ -9,6 +9,8 @@ public class PathFindingTest : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+
+		//TODO make capable of accepting arbitrary maps
 		int[,] map = new int[5, 5]{
 			{0,1,0,0,0},
 			{0,1,0,0,0},
@@ -23,6 +25,8 @@ public class PathFindingTest : MonoBehaviour {
 
 		search.Start(graph.nodes[0], graph.nodes[2]);
 
+
+		//TODO do an update every n frames or so, so it walks the path out live instead of just updating all at once
 		while(!search.finished){
 			search.Step();
 		}
