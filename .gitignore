@@ -35,3 +35,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+*.meta
+
+Packages/*
+ProjectSettings/*
+.vscode/*
