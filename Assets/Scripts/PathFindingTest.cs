@@ -7,7 +7,7 @@ public class PathFindingTest : MonoBehaviour {
 
 	public GameObject mapGroup;
 	Graph graph;
-
+	private int start = 0, goal = 14;
 	Search search;
 
 	// Use this for initialization
@@ -26,7 +26,7 @@ public class PathFindingTest : MonoBehaviour {
 		graph = new Graph(map);
 		search = new Search(graph);
 
-		search.Start(graph.nodes[0], graph.nodes[2]);
+		search.Start(graph.nodes[start], graph.nodes[goal]);
 		
 		while(!search.finished){
 			search.Step();
@@ -46,9 +46,17 @@ public class PathFindingTest : MonoBehaviour {
 
 	void ResetMapGroup(Graph graph){
 
-		foreach(Node node in graph.nodes){
-			GetImage(node.label).color = node.adjacent.Count == 0 ? Color.white : Color.gray;
+		for(int i = 0; i < graph.nodes.Length; i++){
+
+			if(i == goal){
+				GetImage(graph.nodes[i].label).color = Color.green;
+			}
+			else{
+				GetImage(graph.nodes[i].label).color = graph.nodes[i].adjacent.Count == 0 ? Color.white : Color.gray;
+			}
 		}
+
+
 	}
 
 	IEnumerator<WaitForSeconds> TrackRoutine () {

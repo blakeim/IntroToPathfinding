@@ -69,6 +69,12 @@ public class Search  {
 			return;
 		}
 
+		if(adjacent == goalNode){
+			node.distanceToGoal = 1;
+		}
+		else{
+			node.distanceToGoal += adjacent.distanceToGoal;
+		}
 		adjacent.previous = node;
 		reachable.Add(adjacent);
 	}
@@ -91,7 +97,16 @@ public class Search  {
 
 	public Node ChoseNode(){
 
-		//TODO create workable heuristic 
-		return reachable[Random.Range(0, reachable.Count)];
+		int distance = -1;
+		Node closestNode = null;
+
+		foreach(Node n in reachable){
+			
+			if(distance == -1 || n.distanceToGoal < distance){
+				distance = n.distanceToGoal;
+				closestNode = n;
+			}
+		} 
+		return closestNode;
 	}
 }
