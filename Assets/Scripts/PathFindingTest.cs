@@ -6,6 +6,10 @@ using UnityEngine;
 public class PathFindingTest : MonoBehaviour {
 
 	public GameObject mapGroup;
+	Graph graph;
+
+	Search search;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -19,25 +23,17 @@ public class PathFindingTest : MonoBehaviour {
 			{0,0,0,0,0}
 		};
 
-		Graph graph = new Graph(map);
-
-		Search search = new Search(graph);
+		graph = new Graph(map);
+		search = new Search(graph);
 
 		search.Start(graph.nodes[0], graph.nodes[2]);
-
-
-		//TODO do an update every n frames or so, so it walks the path out live instead of just updating all at once
+		
 		while(!search.finished){
 			search.Step();
 		}
 
-		print("Search done, path count is " + search.path.Count + " and iterations were " + search.iterations);
-
 		ResetMapGroup(graph);
-
-		foreach(Node node in search.path){
-			GetImage(node.label).color = Color.red;
-		}
+		StartCoroutine(TrackRoutine());
 	}
 	
 	Image GetImage(string label){
@@ -55,8 +51,15 @@ public class PathFindingTest : MonoBehaviour {
 		}
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
+	IEnumerator<WaitForSeconds> TrackRoutine () {
+
+		foreach(Node node in search.path){
+			GetImage(node.label).color = Color.red;
+			yield return new WaitForSeconds(0.5f);
+		}
+	}
+
+	void Update(){
+
 	}
 }
